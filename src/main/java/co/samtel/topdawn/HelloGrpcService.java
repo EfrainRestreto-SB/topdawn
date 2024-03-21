@@ -1,9 +1,9 @@
 package co.samtel.topdawn;
 
-import io.quarkus.grpc.GrpcService;
+
 
 import io.smallrye.mutiny.Uni;
-
+/*
 @GrpcService
 public class HelloGrpcService implements HelloGrpc {
 
@@ -13,4 +13,6 @@ public class HelloGrpcService implements HelloGrpc {
                 .map(msg -> HelloReply.newBuilder().setMessage(msg).build());
     }
 
-}
+}*/
+public class HelloGrpcService  {}
+
