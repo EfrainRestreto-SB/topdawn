@@ -1,78 +1,99 @@
 package co.samtel.topdawn.service;
 
+import co.samtel.topdawn.constant.Constans;
+import co.samtel.topdawn.dao.Mock.UsuarioArrayDao;
 import co.samtel.topdawn.dao.UsuarioDao;
 import co.samtel.topdawn.entity.UsuarioEntity;
 import co.samtel.topdawn.gen.type.UsuarioTypeInput;
+import co.samtel.topdawn.utils.exception.ApplicationException;
 import co.samtel.topdawn.utils.mapper.UsuarioMapper;
 
 
 
-import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
+import jakarta.ws.rs.core.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 
 @ApplicationScoped
 public class UsuarioServiceImpl {
 
+    private static final Logger LOG = LoggerFactory.getLogger(UsuarioServiceImpl.class);
     @Inject
     UsuarioDao usuarioDao;
+
+    @Inject
+    UsuarioArrayDao usuarioArrayDao;
 
     @Inject
     UsuarioMapper usuarioMapper;
 
 
     @Transactional
-    public Uni<UsuarioEntity> crearUsuario(UsuarioTypeInput usuarioTypeInput) {
-        UsuarioEntity usuario = usuarioMapper.usuarioTypeToEntity(usuarioTypeInput);
-        usuarioDao.persist(usuario);
-       return null;
+    public UsuarioEntity crearUsuario(UsuarioTypeInput usuarioTypeInput) {
+        LOG.info("Se inicia crearUsuario Impl");
+        try {
+            UsuarioEntity usuario = usuarioMapper.usuarioTypeToEntity(usuarioTypeInput);
+            usuarioDao.persist(usuario);
+            return usuario;
+        } catch (ApplicationException e) {
+            LOG.error(Constans.ERROR_SERVICIO + e.getMessage() + " buscarUsuarioPorIdImpl");
+            UsuarioEntity usuarioResponse = null;
+            return null;
+        }
     }
 
     public UsuarioEntity buscarUsuarioPorId(Integer idtblUser) {
-        return null;
-    }
-
-    public UsuarioEntity borrarUsuarioPorId(Integer idtblUser) {
-        return null;
-    }
-
-    public UsuarioEntity actualizarUsuarioPorId(UsuarioTypeInput usuarioTypeInput) {
-        return null;
-    }
-
-/*
-    @Transactional
-    public UsuarioTypeInput crearUsuario(UsuarioTypeInput usuarioTypeInput) {
-        UsuarioEntity entity = usuarioMapper.usuarioTypeToEntity(usuarioTypeInput);
-        usuarioDao.persist(entity);
-        UsuarioTypeInput UsuarioType = usuarioMapper.usuarioEntityToType(entity);
-        return UsuarioType;
-    }
-
-    public UsuarioEntity buscarUsuarioPorId(Integer idtblUser) {
-
-        UsuarioEntity usuarioResponse = (UsuarioEntity) usuarioDao.findById(Long.valueOf(idtblUser));
-
-        return usuarioResponse;
+        LOG.info("Se inicia buscar usuario por id Impl");
+        try {
+            LOG.info("Se finaliza buscar usuario por id Impl");
+            return usuarioDao.findById(Long.valueOf(idtblUser));
+        } catch (ApplicationException e) {
+            LOG.error(Constans.ERROR_SERVICIO + e.getMessage() + " buscarUsuarioPorIdImpl");
+            return null;
+        }
     }
 
     @Transactional
     public UsuarioEntity borrarUsuarioPorId(Integer idtblUser) {
-        UsuarioEntity usuarioEntity = buscarUsuarioPorId(idtblUser);
-        usuarioDao.delete(usuarioEntity);
-        return usuarioEntity;
+        LOG.info("Se inicia borrar usuario por id Impl");
+        try {
+            UsuarioEntity usuarioEntity = buscarUsuarioPorId(idtblUser);
+            usuarioDao.delete(usuarioEntity);
+            LOG.info("Se finaliza borrar usuario por id Impl");
+            return usuarioEntity;
+        } catch (ApplicationException e) {
+            LOG.error(Constans.ERROR_SERVICIO + e.getMessage() + " borrarUsuarioPorIdImpl");
+            return null;
+        }
     }
 
     @Transactional
     public UsuarioEntity actualizarUsuarioPorId(UsuarioTypeInput usuarioTypeInput) {
-        UsuarioEntity entity = usuarioMapper.usuarioTypeToEntity(usuarioTypeInput);
-        Long id = entity.getId();
-        String nombre = entity.getName();
-        UsuarioEntity usuario = (UsuarioEntity) usuarioDao.findById(id);
-        usuario.setName(nombre);
-        usuarioDao.persist(usuario);
-        return usuario;
-    }*/
+        LOG.info("Se inicia borrar usuario por id Impl");
+        UsuarioEntity entity = null;
+        try {
+            entity = usuarioMapper.usuarioTypeToEntity(usuarioTypeInput);
+            Long id = entity.getId();
+            String nombre = entity.getName();
+            UsuarioEntity usuario = usuarioDao.findById(id);
+            usuario.setName(nombre);
+            usuarioDao.persist(usuario);
+            return usuario;
+        } catch (ApplicationException e) {
+            LOG.error(Constans.ERROR_SERVICIO + e.getMessage() + " actualizarUsuarioPorIdImpl");
+            return entity;
+        }
+    }
+
+    public List<UsuarioEntity>  listarUsuarios() {
+        List<UsuarioEntity> all = usuarioDao.listAll();
+        return all;
+    }
 }

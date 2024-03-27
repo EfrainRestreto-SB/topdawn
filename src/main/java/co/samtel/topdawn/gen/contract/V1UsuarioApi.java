@@ -15,7 +15,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2024-03-21T10:33:15.822922700-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2024-03-26T15:06:33.657130500-05:00[America/Bogota]")
 public interface V1UsuarioApi {
 
     @PUT
@@ -24,7 +24,7 @@ public interface V1UsuarioApi {
     @Produces({ "application/json" })
     Response actualizarUsuarioPorId(@Valid UsuarioTypeInput usuarioTypeInput);
 
-    @GET
+    @DELETE
     @Path("/borrarUsuarioPorId/{idtbl_user}")
     @Produces({ "application/json" })
     Response borrarUsuarioPorId(@PathParam("idtbl_user") @Min(1) Integer idtblUser);
@@ -39,4 +39,8 @@ public interface V1UsuarioApi {
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
     Response crearUsuario(@Valid UsuarioTypeInput usuarioTypeInput);
+
+    @GET
+    @Path("/listarUsuarios")
+    Response listarUsuarios();
 }

@@ -6,15 +6,21 @@ import co.samtel.topdawn.gen.contract.V1UsuarioApi;
 import co.samtel.topdawn.gen.type.UsuarioTypeInput;
 import co.samtel.topdawn.service.UsuarioServiceImpl;
 import co.samtel.topdawn.utils.exception.ApplicationException;
+import co.samtel.topdawn.utils.validator.UsuarioValidator;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class UsuarioController implements V1UsuarioApi {
     private static final Logger LOG = LoggerFactory.getLogger(UsuarioController.class);
     @Inject
     UsuarioServiceImpl usuarioServiceImpl;
+
+    @Inject
+    UsuarioValidator usuarioValidator;
 
     @Override
     public Response actualizarUsuarioPorId(UsuarioTypeInput usuarioTypeInput) {
@@ -61,14 +67,29 @@ public class UsuarioController implements V1UsuarioApi {
     @Override
     public Response crearUsuario(UsuarioTypeInput usuarioTypeInput) {
         LOG.info("Se inicia crear usuario Controller");
-        UsuarioTypeInput usuarioType = null;
+        usuarioValidator.verificarUsuarioTypeInput(usuarioTypeInput);
+        UsuarioEntity usuarioResponse = null;
         try {
-           usuarioServiceImpl.crearUsuario(usuarioTypeInput);
+            usuarioResponse = usuarioServiceImpl.crearUsuario(usuarioTypeInput);
+            LOG.info("Finaliza crear usuario Controller");
+            return Response.status(Response.Status.CREATED).entity(usuarioResponse).build();
         } catch (ApplicationException e) {
             LOG.error(Constans.ERROR_SERVICIO + e.getMessage() + " crearUsuarioController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(usuarioType).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(usuarioResponse).build();
         }
-        LOG.info("Finaliza crear usuario Controller");
-        return Response.status(Response.Status.CREATED).entity(usuarioType).build();
+    }
+
+    @Override
+    public Response listarUsuarios() {
+        LOG.info("Se inicia listar usuario Controller");
+        List<UsuarioEntity> usuarios = null;
+        try {
+            usuarios = usuarioServiceImpl.listarUsuarios();
+            return Response.status(200).entity(usuarios).build();
+        } catch (ApplicationException e) {
+            LOG.error(Constans.ERROR_SERVICIO + e.getMessage() + " listarUsuariosController");
+            return Response.status(Response.Status.BAD_REQUEST).entity(usuarios).build();
+        }
+
     }
 }

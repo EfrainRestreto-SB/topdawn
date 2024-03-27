@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package ="com.samtel.grpc.proto.service";
+option java_outer_classname = "UserServiceProto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+message Usuario {
+  int64 id = 1;
+  string name = 2;
+  string lastname = 3;
+}
+
+message UsuarioList {
+  repeated Usuario resultList = 1;
+  google.protobuf.Int64Value resultCount = 2;
+}
+
+service UsuarioService {
+  rpc create(Usuario) returns (Usuario) {};
+  rpc update(Usuario) returns (Usuario) {};
+  rpc findById(google.protobuf.Int64Value) returns (Usuario) {};
+  rpc list(google.protobuf.Empty) returns (UsuarioList) {};
+  rpc delete(google.protobuf.Int64Value) returns (google.protobuf.BoolValue) {};
+
+}

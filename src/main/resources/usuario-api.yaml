@@ -73,8 +73,46 @@ paths:
           description: "Parámetros de entrada no validos."
         "404":
           description: "No se encuentra la novedad."
-  /v1/es/borrarUsuarioPorId/{idtbl_user}:
+          /v1/es/buscarUsuarioPorId/{idtbl_user}:
+            get:
+              tags:
+                - Listar usuario por id
+              parameters:
+                - in: path
+                  name: idtbl_user   # Note the name is the same as in the path
+                  required: true
+                  schema:
+                    type: integer
+                    minimum: 1
+                  description: The user ID
+              operationId: buscarUsuarioPorId
+              responses:
+                "200":
+                  description: Usuario creado.
+                  content:
+                    application/json:
+                      schema:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/UsuarioTypeResponse"
+                "400":
+                  description: "Parámetros de entrada no validos."
+                "404":
+                  description: "No se encuentra la novedad."
+  /v1/es/listarUsuarios:
     get:
+      tags:
+        - Listar usuario por id
+      operationId: listarUsuarios
+      responses:
+        "200":
+          description: Listo Usuario.
+        "400":
+          description: "Parámetros de entrada no validos."
+        "404":
+          description: "No se encuentra la novedad."
+  /v1/es/borrarUsuarioPorId/{idtbl_user}:
+    delete:
       tags:
         - Listar usuario por id
       parameters:

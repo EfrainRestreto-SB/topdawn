@@ -4,6 +4,7 @@ import co.samtel.topdawn.entity.UsuarioEntity;
 import co.samtel.topdawn.gen.type.UsuarioTypeInput;
 import co.samtel.topdawn.gen.type.UsuarioTypeResponse;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.core.Response;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class UsuarioMapper {
         return usuarioTypeList.stream().map(usuario -> usuarioTypeToEntity(usuario))
                 .collect(Collectors.toList());
     }
+
 
 
     public UsuarioEntity clienteTypeToEntity(UsuarioTypeInput usuarioTypeInput) {
