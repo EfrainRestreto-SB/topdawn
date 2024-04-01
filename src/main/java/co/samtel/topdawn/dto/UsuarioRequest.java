@@ -1,2 +1,14 @@
-package co.samtel.topdawn.dto;public class UsuarioRequest {
+package co.samtel.topdawn.dto;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Builder
+public class UsuarioRequest {
+    private Long id;
+    private String name;
+    private String lastname;
 }
