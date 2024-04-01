@@ -1,16 +1,18 @@
 package co.samtel.topdawn.utils.mapper.contract;
 
-import co.samtel.topdawn.entity.UsuarioEntity;
-import co.samtel.topdawn.gen.type.UsuarioTypeInput;
-import co.samtel.topdawn.gen.type.UsuarioTypeResponse;
 
+import co.samtel.topdawn.dto.UsuarioRequest;
 import com.samtel.grpc.proto.service.Usuario;
-import jakarta.enterprise.context.ApplicationScoped;
 
-import java.util.List;
+import org.mapstruct.Mapper;
 
-@ApplicationScoped
+
+@Mapper(componentModel = "cdi")
 public interface IUsuarioMapperGrpc {
+
+    Usuario userRequestToUser(UsuarioRequest userRequest);
+
+   // UsuarioEntity userToEntity(Usuario request);
 
   /*  UsuarioEntity userToEntity(Usuario user);
     Usuario entityToUser(UsuarioEntity entity);
