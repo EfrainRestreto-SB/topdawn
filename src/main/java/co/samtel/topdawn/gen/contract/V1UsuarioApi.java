@@ -8,14 +8,16 @@ import jakarta.ws.rs.core.Response;
 
 
 
+
 import java.io.InputStream;
 import java.util.Map;
 import java.util.List;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
+
 @Path("/v1/es")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2024-04-02T11:04:05.477597800-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2024-04-02T16:05:53.139638700-05:00[America/Bogota]", comments = "Generator version: 7.4.0")
 public interface V1UsuarioApi {
 
     @PUT
