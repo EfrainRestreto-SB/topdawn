@@ -1,4 +1,4 @@
-package co.samtel.topdawn.service.rest;
+package co.samtel.topdawn.service.rest.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 

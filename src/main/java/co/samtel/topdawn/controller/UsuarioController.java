@@ -4,7 +4,8 @@ import co.samtel.topdawn.constant.Constans;
 import co.samtel.topdawn.entity.UsuarioEntity;
 import co.samtel.topdawn.gen.contract.V1UsuarioApi;
 import co.samtel.topdawn.gen.type.UsuarioTypeInput;
-import co.samtel.topdawn.service.UsuarioServiceImpl;
+import co.samtel.topdawn.service.rest.contract.IUsuarioService;
+import co.samtel.topdawn.service.rest.impl.UsuarioServiceImpl;
 import co.samtel.topdawn.utils.exception.ApplicationException;
 import co.samtel.topdawn.utils.validator.UsuarioValidator;
 import jakarta.inject.Inject;
@@ -16,18 +17,19 @@ import java.util.List;
 
 public class UsuarioController implements V1UsuarioApi {
     private static final Logger LOG = LoggerFactory.getLogger(UsuarioController.class);
-    @Inject
-    UsuarioServiceImpl usuarioServiceImpl;
 
     @Inject
     UsuarioValidator usuarioValidator;
+
+    @Inject
+    IUsuarioService iUsuarioService;
 
     @Override
     public Response actualizarUsuarioPorId(UsuarioTypeInput usuarioTypeInput) {
         LOG.info("Se inicia actualizar usuario  en Controller");
         UsuarioEntity usuarioActualizado = null;
         try {
-            usuarioActualizado = usuarioServiceImpl.actualizarUsuarioPorId(usuarioTypeInput);
+            usuarioActualizado = iUsuarioService.actualizarUsuarioPorId(usuarioTypeInput);
             LOG.info("Se finaliza actualizar usuario  en Controller");
             return Response.status(Response.Status.OK).entity(usuarioActualizado).build();
         } catch (ApplicationException e) {
@@ -41,7 +43,7 @@ public class UsuarioController implements V1UsuarioApi {
         LOG.info("Se inicia buscar usuario por id en Controller");
         UsuarioEntity usuarioBorrado = null;
         try {
-            usuarioBorrado = usuarioServiceImpl.borrarUsuarioPorId(idtblUser);
+            usuarioBorrado = iUsuarioService.borrarUsuarioPorId(idtblUser);
             LOG.info("Se inicia buscar usuario por id en Controller");
             return Response.status(Response.Status.OK).entity(usuarioBorrado).build();
         } catch (ApplicationException e) {
@@ -55,7 +57,7 @@ public class UsuarioController implements V1UsuarioApi {
         LOG.info("Se inicia buscar usuario por id Controller");
         UsuarioEntity usuarioType = null;
         try {
-            usuarioType = usuarioServiceImpl.buscarUsuarioPorId(idtblUser);
+            usuarioType = iUsuarioService.buscarUsuarioPorId(idtblUser);
         } catch (ApplicationException e) {
             LOG.error(Constans.ERROR_SERVICIO + e.getMessage() + " buscarUsuarioPorIdController");
             return Response.status(Response.Status.BAD_REQUEST).entity(usuarioType).build();
@@ -70,7 +72,7 @@ public class UsuarioController implements V1UsuarioApi {
         usuarioValidator.verificarUsuarioTypeInput(usuarioTypeInput);
         UsuarioEntity usuarioResponse = null;
         try {
-            usuarioResponse = usuarioServiceImpl.crearUsuario(usuarioTypeInput);
+            usuarioResponse = iUsuarioService.crearUsuario(usuarioTypeInput);
             LOG.info("Finaliza crear usuario Controller");
             return Response.status(Response.Status.CREATED).entity(usuarioResponse).build();
         } catch (ApplicationException e) {
@@ -84,12 +86,11 @@ public class UsuarioController implements V1UsuarioApi {
         LOG.info("Se inicia listar usuario Controller");
         List<UsuarioEntity> usuarios = null;
         try {
-            usuarios = usuarioServiceImpl.listarUsuarios();
+            usuarios = iUsuarioService.listarUsuarios();
             return Response.status(200).entity(usuarios).build();
         } catch (ApplicationException e) {
             LOG.error(Constans.ERROR_SERVICIO + e.getMessage() + " listarUsuariosController");
             return Response.status(Response.Status.BAD_REQUEST).entity(usuarios).build();
         }
-
     }
 }

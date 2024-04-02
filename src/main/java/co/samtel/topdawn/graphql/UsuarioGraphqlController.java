@@ -4,7 +4,7 @@ import co.samtel.topdawn.constant.Constans;
 import co.samtel.topdawn.dao.UsuarioDao;
 import co.samtel.topdawn.entity.UsuarioEntity;
 import co.samtel.topdawn.gen.type.UsuarioTypeInput;
-import co.samtel.topdawn.service.UsuarioServiceImpl;
+import co.samtel.topdawn.service.rest.impl.UsuarioServiceImpl;
 import co.samtel.topdawn.utils.exception.ApplicationException;
 import co.samtel.topdawn.utils.mapper.UsuarioMapper;
 import jakarta.inject.Inject;

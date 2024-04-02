@@ -1,4 +1,4 @@
-package co.samtel.topdawn.service;
+package co.samtel.topdawn.service.rest.impl;
 
 import co.samtel.topdawn.constant.Constans;
 import co.samtel.topdawn.dao.Mock.UsuarioArrayDao;
@@ -14,15 +14,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
-import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-
+import co.samtel.topdawn.service.rest.contract.IUsuarioService;
 
 @ApplicationScoped
-public class UsuarioServiceImpl {
+public class UsuarioServiceImpl implements IUsuarioService{
 
     private static final Logger LOG = LoggerFactory.getLogger(UsuarioServiceImpl.class);
     @Inject

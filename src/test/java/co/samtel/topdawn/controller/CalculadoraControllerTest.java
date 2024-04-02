@@ -3,7 +3,7 @@ package co.samtel.topdawn.controller;
 
 
 
-import co.samtel.topdawn.service.rest.CalculadoraServiceImpl;
+import co.samtel.topdawn.service.rest.impl.CalculadoraServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
