@@ -1,4 +1,4 @@
-package co.samtel.topdawn.graphql;
+package co.samtel.topdawn.controller.graphql;
 
 import co.samtel.topdawn.constant.Constans;
 import co.samtel.topdawn.dao.UsuarioDao;
@@ -44,7 +44,7 @@ public class UsuarioGraphqlController {
         }
     }
 
-    @Mutation("createUser")
+    @Mutation("crearUsuario")
     @Transactional
     public UsuarioTypeInput crearUsuario(@Name("account") UsuarioTypeInput usuarioTypeInput) {
         UsuarioEntity entity = usuarioMapper.usuarioTypeToEntity(usuarioTypeInput);
@@ -53,7 +53,7 @@ public class UsuarioGraphqlController {
         return UsuarioType;
     }
 
-    @Mutation("actualizarUser")
+    @Mutation("actualizarUsuario")
     @Transactional
     public UsuarioEntity actualizarUsuarioPorId(UsuarioTypeInput usuarioTypeInput) {
         UsuarioEntity entity = usuarioMapper.usuarioTypeToEntity(usuarioTypeInput);
@@ -62,6 +62,15 @@ public class UsuarioGraphqlController {
         UsuarioEntity usuario = usuarioDao.findById(id);
         usuario.setName(nombre);
         usuarioDao.persist(usuario);
+        return usuario;
+    }
+
+    @Mutation("borrarUsuario")
+    @Transactional
+    public UsuarioEntity borrarUsuarioPorId(Integer idtblUser) {
+        UsuarioEntity usuario;
+        usuario = usuarioDao.findById(Long.valueOf(idtblUser));
+        usuarioDao.delete(usuario);
         return usuario;
     }
 }
