@@ -5,7 +5,6 @@ import co.samtel.topdawn.entity.UsuarioEntity;
 import co.samtel.topdawn.gen.contract.V1UsuarioApi;
 import co.samtel.topdawn.gen.type.UsuarioTypeInput;
 import co.samtel.topdawn.service.rest.contract.IUsuarioService;
-import co.samtel.topdawn.service.rest.impl.UsuarioServiceImpl;
 import co.samtel.topdawn.utils.exception.ApplicationException;
 import co.samtel.topdawn.utils.validator.UsuarioValidator;
 import jakarta.inject.Inject;
