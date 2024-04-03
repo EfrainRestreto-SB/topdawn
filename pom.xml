@@ -2,7 +2,7 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>co.samtel.topdawn</groupId>
+  <groupId>io.quarkus.topdawn</groupId>
   <artifactId>topdawn</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <properties>
@@ -123,9 +123,9 @@
               <configOptions>
                 <useJakartaEe>true</useJakartaEe>
                 <dateLibrary>java8</dateLibrary>
-                <modelPackage>co.samtel.topdawn.gen.type</modelPackage>
-                <invokerPackage>co.samtel.topdawn.gen</invokerPackage>
-                <apiPackage>co.samtel.topdawn.gen.contract</apiPackage>
+                <modelPackage>io.quarkus.topdawn.gen.type</modelPackage>
+                <invokerPackage>io.quarkus.topdawn.gen</invokerPackage>
+                <apiPackage>io.quarkus.topdawn.gen.contract</apiPackage>
                 <sourceFolder>src/main/java</sourceFolder>
                 <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                 <generateAdditionalProperties>true</generateAdditionalProperties>
@@ -166,6 +166,7 @@
         <configuration>
           <systemPropertyVariables>
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+            <!--suppress UnresolvedMavenProperty -->
             <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
@@ -185,6 +186,7 @@
           <systemPropertyVariables>
             <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+            <!--suppress UnresolvedMavenProperty -->
             <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
